@@ -1,0 +1,72 @@
+<!--  -->
+<HTML lang="">
+<script src = "https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+
+
+
+
+    $(document).ready(function(){
+        $("#button1").click(function(){
+            const LockSwitch = $("#LockSwitch").val();
+            console.log(LockSwitch);
+            alert("Text: "+$("#LockSwitch").val());
+            const data_request = {LockSwitch:$("#LockSwitch").val()};
+            $.ajax({
+                type:"post",
+                url:'/test/SetLockSwitch',
+                data:JSON.stringify(data_request),
+                {#contentType:'text/html; charset=utf-8',#}
+                {#dataType:'json',#}
+                contentType: 'application/json;charset=UTF-8',
+                success:function (data){
+                    $("#response_SetLockSwitch").text(data)
+                    console.log('success'+data.toString())
+
+                }
+            })
+
+    })
+
+    });
+
+</script>
+<meta charset="utf-8">
+<body>
+
+    <div>
+        <h2>设备详细信息</h2>
+        {{data}}
+    </div>
+    <div>
+        <p>LockSwitch:{{LockSwitch}}</p>
+
+    </div>
+    <div>
+        <p>Version:{{Version}}</p>
+
+    </div>
+    <div>
+        <p>CurrentVoltage:{{CurrentVoltage}}</p>
+    </div>
+
+    <div>
+        <div>BatteryPercentage:{{ BatteryPercentage }}</div>
+    </div>
+    <div>
+        <div>GeoLocation:{{ GeoLocation }}</div>
+    </div>
+{#    <div>#}
+{#        <label for="command">请输入命令:</label><input type="text" id="command">#}
+{#        <button>发送命令</button><br>#}
+{#        返回数据为:<text id='response'></text>#}
+{#    </div>#}
+    <div>
+        灯属性设置:<input type="text" id="LockSwitch">
+        <button id="button1">设置</button><br>
+        返回数据为:
+        <div id="response_SetLockSwitch"></div>
+    </div>
+
+</body>
+</HTML>
